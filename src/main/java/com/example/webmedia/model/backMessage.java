@@ -1,6 +1,15 @@
 package com.example.webmedia.model;
 
-public class backMessage {
+
+/**
+* @program: BackMessage.java
+*
+* @author: xty
+*
+* @create: 2019/10/13/013
+**/
+
+public class BackMessage {
 
     private Integer sign;
     private String role;
@@ -15,13 +24,29 @@ public class backMessage {
         this.content = content;
     }
 
-    public backMessage() {
+    public BackMessage() {
     }
 
-    public backMessage(Integer sign, String role, String username) {
+    public BackMessage(Integer sign, String role, String username) {
         this.sign = sign;
         this.role = role;
         this.username = username;
+    }
+
+    public static BackMessage buildSuccess()
+    {
+        BackMessage backMessage = new BackMessage();
+        backMessage.setSign(200);
+        backMessage.setContent("success");
+        return backMessage;
+    }
+
+    public static BackMessage buildFail()
+    {
+        BackMessage backMessage = new BackMessage();
+        backMessage.setSign(404);
+        backMessage.setContent("Fail");
+        return backMessage;
     }
 
     public Integer getSign() {

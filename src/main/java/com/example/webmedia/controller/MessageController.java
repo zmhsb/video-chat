@@ -2,7 +2,6 @@ package com.example.webmedia.controller;
 
 import com.example.webmedia.Template.MessageTemplate;
 import com.example.webmedia.model.InMessage;
-import com.example.webmedia.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;

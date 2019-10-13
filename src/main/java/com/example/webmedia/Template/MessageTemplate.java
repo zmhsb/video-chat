@@ -2,7 +2,6 @@ package com.example.webmedia.Template;
 
 import com.example.webmedia.model.InMessage;
 import com.example.webmedia.model.OutMessage;
-import com.example.webmedia.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;

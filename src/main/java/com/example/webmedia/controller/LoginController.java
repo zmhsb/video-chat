@@ -1,98 +1,84 @@
 package com.example.webmedia.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.example.webmedia.Service.RegisterService;
-import com.example.webmedia.model.Consumer;
 
-import com.example.webmedia.model.backMessage;
+import com.example.webmedia.Service.UserService;
+import com.example.webmedia.model.VcUser;
+import com.example.webmedia.model.BackMessage;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
 @ResponseBody
+@RequestMapping("/user")
+/**
+* @program: LoginController.java
+*
+* @author: xty
+*
+* @create: 2019/10/13/013
+**/
+
 public class LoginController {
 
 
     @Autowired
-    RegisterService registerService;
+    UserService userService;
 
     @RequestMapping("/login")
-    @ResponseBody
-    public backMessage login(Consumer consumer,HttpServletRequest request)
+    public BackMessage login(VcUser user, HttpServletRequest request)
     {
-        System.out.println(consumer);
+        System.out.println(user);
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(consumer.getUsername(),consumer.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(),user.getPassword());
         try {
             subject.login(token);
-            if(subject.hasRole("admin"))
-            {
-              //  System.out.println();
-                HttpSession session = request.getSession();
-                session.setAttribute("role","admin");
-                session.setAttribute("username",consumer.getUsername());
-                backMessage back = new backMessage(200,"admin",consumer.getUsername());
-                return back;
-               // return "redirect:/admin";
-            }else
-            {
-                System.out.println("user");
-                HttpSession session = request.getSession();
-                session.setAttribute("role","user");
-                session.setAttribute("username",consumer.getUsername());
-                backMessage back = new backMessage(200,"user",consumer.getUsername());
-              // return "redirect:/user";
-                return back;
-            }
+            BackMessage backMessage = BackMessage.buildSuccess();
+            backMessage.setUsername(user.getUsername());
+            //添加身份
+            Object principal = subject.getPrincipals();
+            VcUser primaryPrincipal = (VcUser) ((PrincipalCollection) principal).getPrimaryPrincipal();
+            System.out.println(primaryPrincipal);
+            return backMessage;
         }catch (AuthenticationException e)
         {
             e.printStackTrace();
-            backMessage back = new backMessage(404,null,consumer.getUsername());
-            return back;
-          //  return "redirect:/";
+            return BackMessage.buildFail();
         }
     }
 
 
-    @RequestMapping("/register")
-    @ResponseBody
-    public backMessage Register(Consumer consumer)
+    @PostMapping("/register")
+    public BackMessage Register(VcUser user)
     {
-        System.out.println(consumer);
-        Integer regist = registerService.regist(consumer);
-        if(regist!=0)
+        System.out.println(user);
+        Integer integer = userService.registerUser(user);
+        if(integer!=0)
         {
             System.out.println("注册成功");
-            backMessage back = new backMessage(200,null,null);
+            BackMessage back = new BackMessage(200,null,null);
             return back;
-          //  return "login";
         }
         System.out.println("注册失败");
-        backMessage back = new backMessage(404,null,null);
+        BackMessage back = new BackMessage(404,null,null);
         return back;
-       // return "register";
     }
 
+
     @RequestMapping("/get_session")
-    @ResponseBody
-    public backMessage logout(HttpServletRequest request)
+    public BackMessage logout(HttpServletRequest request)
     {
          HttpSession session = request.getSession();
-         backMessage back = new backMessage();
+         BackMessage back = new BackMessage();
          back.setSign(404);
          if(session.getAttribute("name")!=null)
          {
