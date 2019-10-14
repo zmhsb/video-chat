@@ -1,5 +1,6 @@
 package com.example.webmedia.Template;
 
+import com.example.webmedia.controller.MessageController;
 import com.example.webmedia.model.InMessage;
 import com.example.webmedia.model.OutMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,21 +18,13 @@ public class MessageTemplate {
 
     public void SendMes(InMessage message)
     {
-        template.convertAndSend("/chat/together",new OutMessage(message.getFrom()+": "+message.getContent()));
+        template.convertAndSend("/topic/chat/together",new OutMessage(message.getFrom()+":     "+message.getContent()));
     }
 
 
-    public void Send_User_Number(Map<String,String> people)
+    public void Send_User_Number()
     {
-        String user = "";
-        for (String u:people.values()
-             ) {
-          //  System.out.println("sdasdas   "+u);
-            user+=u;
-            user+="--";
-        }
-        System.out.println(user);
-        template.convertAndSend("/topic/onlineuser",new OutMessage("当前在线人数:"+people.size()+": "+user));
+        template.convertAndSend("/topic/onlineuser",new OutMessage("当前在线人数:  "+MessageController.onlineUser.size()+"人"));
     }
 
 }

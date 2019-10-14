@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.webmedia.Service.UserService;
 import com.example.webmedia.model.VcUser;
 import com.example.webmedia.model.BackMessage;
+import com.example.webmedia.model.VcUserRole;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @ResponseBody
@@ -47,7 +49,8 @@ public class LoginController {
             //添加身份
             Object principal = subject.getPrincipals();
             VcUser primaryPrincipal = (VcUser) ((PrincipalCollection) principal).getPrimaryPrincipal();
-            System.out.println(primaryPrincipal);
+            List<VcUserRole> rolesId = primaryPrincipal.getRolesId();
+
             return backMessage;
         }catch (AuthenticationException e)
         {
