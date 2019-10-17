@@ -7,7 +7,11 @@ public class OutMessage {
 	private String from;
 	
 	private String content;
-	
+
+	private String status;
+
+	private String path;
+
 	private Date time = new Date();
 
 	public OutMessage(){}
@@ -16,8 +20,23 @@ public class OutMessage {
 		this.content = content;
 		
 	}
-	
-	
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public String getFrom() {
 		return from;
 	}

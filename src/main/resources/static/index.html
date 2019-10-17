@@ -28,8 +28,11 @@
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
+        <select style="display: none" id="movieList" class="form-control">
+        </select>
         <button type="submit" class="btn btn-default">搜索</button>
       </form>
+
       <ul class="nav navbar-nav navbar-right">
         <li><a  href="#" id="onlineUser">在线人数</a></li>
         <li><a data-toggle='modal' data-target='#LoginModal' href="#" id='login'>登录</a></li>
@@ -41,21 +44,34 @@
 
 <div class="row">
   <div class="col-md-9">
-    <div style="width: 1065px;height: 50px;border: 2px solid red;">
-      <img src="">
-
+    <div style="width: 1065px;height: 60px;border: 2px solid red;">
+      <div class="row">
+        <div class="col-md-3">
+          <img src="/img/1.jpg" style="height: 60px;width: 60px">
+        </div>
+        <div class="col-md-8">
+          <p id="movieTitle">当前正在播放:</p>
+        </div>
+      </div>
     </div>
-    <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none"
-           poster="http://vjs.zencdn.net/v/oceans.png">
-      <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+    <video id="example_video_1" class="video-js vjs-default-skin" preload="none">
+      <source id="movieSource" src="http://10.11.72.22:81/video/CgtIFl2mtO2AAQrKAVNFNiVg-Ik744.mp4" type="video/mp4">
     </video>
-    <div style="width: 1065px;height: 50px;border: 2px solid red;">
-      礼物框
+    <div  style="width: 1065px;height: 50px;border: 2px solid red;">
+      <div class="row">
+        <div class="col-md-7">
+          礼物框
+        </div>
+        <div id="gift" class="col-md-5">
+        </div>
+      </div>
     </div>
   </div>
   <div class="col-md-3">
-    <div style="border: 3px solid red; height: 550px;width: 100%">
-      <table id="chatArea">
+    <div style="overflow-x: auto; overflow-y: auto; border: 3px solid red; height: 550px;width: 100%">
+      <table style="height: 700px;border-spacing: 15px">
+        <tbody id="chatArea">
+        </tbody>
       </table>
     </div>
     <div style="height: 50px">
@@ -148,15 +164,19 @@
   </div>
 </div>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.3.0/video-js.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.3.0/video.min.js"></script>
 
+    <!--<link href="//vjs.zencdn.net/5.19/video-js.min.css" rel="stylesheet">-->
+    <!--<script src="//vjs.zencdn.net/5.19/video.min.js"></script>-->
     <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.3.0/video-js.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.3.0/video.min.js"></script>
 
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
 
@@ -167,7 +187,6 @@
     <script src="/JS/app.js"></script>
 
     <script src="/JS/index.js"></script>
-
 
 
   </body>

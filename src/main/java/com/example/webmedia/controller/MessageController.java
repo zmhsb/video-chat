@@ -29,6 +29,8 @@ public class MessageController {
         String sessionid = headerAccessor.getSessionId();
         System.out.println("登录的sessionid====  "+sessionid);
         onlineUser.put(sessionid,inMessage.getFrom());
+        messageTemplate.Send_User_Number();
+        messageTemplate.Send_Movie_Status();
     }
 
 
@@ -39,10 +41,10 @@ public class MessageController {
 
 
 
-    @Scheduled(fixedRate = 5000)
-    public void onlineUser() {
-        messageTemplate.Send_User_Number();
-    }
+//    @Scheduled(fixedRate = 5000)
+//    public void onlineUser() {
+//        messageTemplate.Send_User_Number();
+//    }
 
 
 }

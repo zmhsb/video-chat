@@ -41,7 +41,7 @@
 		
 		
 
-		<table tableName="vc_user_role">
+		<table tableName="pic">
 			<generatedKey column="id" sqlStatement="JDBC"/>
 		</table>
 

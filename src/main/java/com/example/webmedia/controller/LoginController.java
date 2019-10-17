@@ -3,6 +3,7 @@ package com.example.webmedia.controller;
 import com.alibaba.fastjson.JSONObject;
 
 import com.example.webmedia.Service.UserService;
+import com.example.webmedia.model.VcRole;
 import com.example.webmedia.model.VcUser;
 import com.example.webmedia.model.BackMessage;
 import com.example.webmedia.model.VcUserRole;
@@ -45,12 +46,18 @@ public class LoginController {
         try {
             subject.login(token);
             BackMessage backMessage = BackMessage.buildSuccess();
+            subject.hasRole("管理员");
             backMessage.setUsername(user.getUsername());
             //添加身份
             Object principal = subject.getPrincipals();
             VcUser primaryPrincipal = (VcUser) ((PrincipalCollection) principal).getPrimaryPrincipal();
             List<VcUserRole> rolesId = primaryPrincipal.getRolesId();
 
+            for (VcUserRole role:rolesId
+                 ) {
+                VcRole roles = role.getRoles();
+                backMessage.setRole(roles.getName());
+            }
             return backMessage;
         }catch (AuthenticationException e)
         {
@@ -98,5 +105,6 @@ public class LoginController {
          }
          return back;
     }
+
 
 }

@@ -9,7 +9,6 @@ import com.example.webmedia.model.VcUser;
 *
 * @create: 2019/10/13/013
 **/
-
 public interface UserService {
 
 

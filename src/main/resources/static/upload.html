@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <h1>文件上传</h1>
+    <hr>
+    <form action="" method="" enctype="multipart/form-data">
+        <a class="opts_btn" href="JavaScript:void(0)">
+            <label id="opst_txt">选择上传文件</label><input type="file" id="oFile" class="oFile" name="movie" onchange="FileChangeFn(event)">
+        </a>
+        <label id="file_size"></label><br><br>
+        <div id="file_box"></div>
+        <div class="speed_box">
+            <div id="speed">0%</div>
+        </div>
+        <label id="file_type"></label>
+        <button type="button" class="send_btn" onclick="UploadFileFn()">开始上传文件</button>
+        <div class="clear"></div>
+    </form>
+
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="/CSS/upload.css" rel="stylesheet">
+    <script type="text/javascript" src="/JS/upload.js"></script>
+</body>
+</html>

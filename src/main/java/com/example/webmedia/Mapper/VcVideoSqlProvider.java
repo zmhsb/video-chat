@@ -17,6 +17,9 @@ import com.example.webmedia.model.VcVideo;
 import com.example.webmedia.model.VcVideoExample.Criteria;
 import com.example.webmedia.model.VcVideoExample.Criterion;
 import com.example.webmedia.model.VcVideoExample;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.jdbc.SQL;
+
 import java.util.List;
 import java.util.Map;
 
@@ -254,5 +257,18 @@ public class VcVideoSqlProvider {
         if (sb.length() > 0) {
             WHERE(sb.toString());
         }
+    }
+
+
+    public String getVideoSrc(@Param("videoName") String videoName){
+        return new SQL(){{
+
+            SELECT("src");
+            FROM("vc_video");
+            if(videoName!=null)
+            {
+                WHERE("name=#{videoName}");
+            }
+        }}.toString();
     }
 }

@@ -59,4 +59,7 @@ public interface VcVideoMapper {
 
     @UpdateProvider(type=VcVideoSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") VcVideo record, @Param("example") VcVideoExample example);
+
+    @SelectProvider(type = VcVideoSqlProvider.class,method = "getVideoSrc")
+    String gerVideoSrc(@Param("videoName") String videoName);
 }
